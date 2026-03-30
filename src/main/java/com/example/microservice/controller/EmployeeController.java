@@ -1,19 +1,16 @@
 package com.example.microservice.controller;
 
 import com.example.microservice.dto.request.EmployeeDTO;
-import com.example.microservice.entity.Employee;
 import com.example.microservice.service.EmployeeService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/employees")
 @CrossOrigin(origins = "*")
 public class EmployeeController {
 
-    private final RestTemplate restTemplate = new RestTemplate();
 
     private final EmployeeService service;
 
@@ -26,17 +23,17 @@ public class EmployeeController {
         return "Hello, World!";
     }
 
-    @GetMapping("/emp")
+    @GetMapping
     public List<EmployeeDTO> getAll() {
         return service.getAll();
     }
 
-    @GetMapping("/emp/{id}")
+    @GetMapping("/{id}")
     public EmployeeDTO getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
-    @PostMapping("/emp")
+    @PostMapping
     public EmployeeDTO create(@RequestBody EmployeeDTO dto) {
         return service.create(dto);
     }
